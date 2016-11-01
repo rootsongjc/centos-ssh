@@ -6,7 +6,7 @@
 # =============================================================================
 FROM centos:centos7.2.1511
 
-MAINTAINER James Deathe <james.deathe@gmail.com>
+MAINTAINER Jimmy Song<rootsongjc@gmail.com>
 
 # -----------------------------------------------------------------------------
 # Import the RPM GPG keys for Repositories
@@ -63,7 +63,7 @@ RUN easy_install \
 # UTC Timezone & Networking
 # -----------------------------------------------------------------------------
 RUN ln -sf \
-		/usr/share/zoneinfo/UTC \
+		/usr/share/zoneinfo/Asia/Shanghai \
 		/etc/localtime \
 	&& echo "NETWORKING=yes" > /etc/sysconfig/network
 
