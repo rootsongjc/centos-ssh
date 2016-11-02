@@ -141,6 +141,17 @@ RUN rm -rf /etc/ld.so.cache \
 EXPOSE 22
 
 # -----------------------------------------------------------------------------
+# Ulimit
+RUN echo "* soft nofile 655350" >> /etc/security/limits.conf & \
+echo "* hard nofile 655350" >> /etc/security/limits.conf & \
+echo "@hadoop        hard    nproc           655350" >> /etc/security/limits.conf & \
+echo "@hadoop        soft    nproc           655350" >> /etc/security/limits.conf & \
+echo "@root        soft    nproc           655350" >> /etc/security/limits.conf & \
+echo "@root        hard    nproc           655350" >> /etc/security/limits.conf & \
+echo "ulimit -SH 655350" >> /etc/rc.local
+# -----------------------------------------------------------------------------
+
+# -----------------------------------------------------------------------------
 # Set default environment variables
 # -----------------------------------------------------------------------------
 ENV SSH_AUTHORIZED_KEYS="" \
