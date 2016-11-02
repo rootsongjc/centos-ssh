@@ -314,7 +314,7 @@ function get_ssh_key_fingerprint ()
 
 function get_ssh_user ()
 {
-	local DEFAULT_VALUE="${1:-app-admin}"
+	local DEFAULT_VALUE="${1:-hadoop}"
 	local VALUE="${SSH_USER:-}"
 
 	if [[ -z ${VALUE} ]] || ! is_valid_ssh_user "${VALUE}"; then
@@ -483,7 +483,7 @@ function generate_ssh_host_keys ()
 
 OPTS_SSH_INHERIT_ENVIRONMENT="${SSH_INHERIT_ENVIRONMENT:-false}"
 OPTS_SSH_USER="$(
-	get_ssh_user app-admin
+	get_ssh_user hadoop
 )"
 OPTS_SSH_USER_HOME="$(
 	get_ssh_user_home

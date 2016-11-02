@@ -11,12 +11,8 @@ MAINTAINER Jimmy Song<rootsongjc@gmail.com>
 # -----------------------------------------------------------------------------
 # Import the RPM GPG keys for Repositories
 # -----------------------------------------------------------------------------
-RUN rpm --import \
-		http://mirror.centos.org/centos/RPM-GPG-KEY-CentOS-7 \
-	&& rpm --import \
-		https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-7 \
-	&& rpm --import \
-		https://dl.iuscommunity.org/pub/ius/IUS-COMMUNITY-GPG-KEY
+RUN rm -f /etc/yum.repos.d/*
+ADD etc/yum.repos.d/td-idc-yz.repo /etc/yum.repos.d/
 
 # -----------------------------------------------------------------------------
 # Base Install
@@ -27,7 +23,7 @@ RUN rpm --rebuilddb \
 		centos-release-scl-rh \
 		epel-release \
 		https://centos7.iuscommunity.org/ius-release.rpm \
-		vim-minimal-7.4.160-1.el7 \
+		vim \
 		xz-5.1.2-12alpha.el7.x86_64 \
 		sudo-1.8.6p7-17.el7_2 \
 		openssh-6.6.1p1-25.el7_2 \
@@ -36,7 +32,7 @@ RUN rpm --rebuilddb \
 		python-setuptools-0.9.8-4.el7 \
 		yum-plugin-versionlock-1.1.31-34.el7 \
 	&& yum versionlock add \
-		vim-minimal \
+		vim \
 		xz \
 		sudo \
 		openssh \
@@ -60,7 +56,7 @@ RUN easy_install \
 		/var/log/supervisor/
 
 # -----------------------------------------------------------------------------
-# UTC Timezone & Networking
+# CTC Timezone & Networking
 # -----------------------------------------------------------------------------
 RUN ln -sf \
 		/usr/share/zoneinfo/Asia/Shanghai \
@@ -160,7 +156,7 @@ ENV SSH_AUTHORIZED_KEYS="" \
 	SSH_CHROOT_DIRECTORY="%h" \
 	SSH_INHERIT_ENVIRONMENT=false \
 	SSH_SUDO="ALL=(ALL) ALL" \
-	SSH_USER="admin" \
+	SSH_USER="hadoop" \
 	SSH_USER_FORCE_SFTP=false \
 	SSH_USER_HOME="/home/%u" \
 	SSH_USER_ID="500:500" \

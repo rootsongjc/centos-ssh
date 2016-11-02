@@ -62,7 +62,7 @@ Connect using the `ssh` command line client with the [insecure private key](http
 
 ```
 $ ssh -p 2020 -i id_rsa_insecure \
-  app-admin@{docker-host-ip}
+  hadoop@{docker-host-ip}
 ```
 
 ### SFTP Mode
@@ -81,7 +81,7 @@ Connect using the `sftp` command line client with the [insecure private key](htt
 
 ```
 $ sftp -p 2021 -i id_rsa_insecure \
-  app-admin@{docker-host-ip}
+  hadoop@{docker-host-ip}
 ```
 
 ## Instructions
@@ -224,7 +224,7 @@ $ sudo -E atomic uninstall \
 
 #### Using environment variables
 
-The following example overrides the default "app-admin" SSH username and home directory path with "app-user" and "/home/app-user" respectively. The same technique could also be applied to set the SSH_USER_PASSWORD value.
+The following example overrides the default "hadoop" SSH username and home directory path with "app-user" and "/home/app-user" respectively. The same technique could also be applied to set the SSH_USER_PASSWORD value.
 
 *Note:* Settings applied by environment variables will override those set within configuration volumes from release 1.3.1. Existing installations that use the sshd-bootstrap.conf saved on a configuration "data" volume will not allow override by the environment variables. Also users can update sshd-bootstrap.conf to prevent the value being replaced by that set using the environment variable.
 
@@ -238,13 +238,13 @@ $ docker stop ssh.pool-1.1.1 \
   jdeathe/centos-ssh:centos-7
 ```
 
-Now you can find out the app-admin, (sudoer), user's password by inspecting the container's logs
+Now you can find out the hadoop, (sudoer), user's password by inspecting the container's logs
 
 ```
 $ docker logs ssh.pool-1.1.1
 ```
 
-The output of the logs should show the auto-generated password for the app-admin and root users, (if not try again after a few seconds).
+The output of the logs should show the auto-generated password for the hadoop and root users, (if not try again after a few seconds).
 
 ```
 2016-02-01 02:26:51,420 CRIT Supervisor running as root (no user in config file)
@@ -321,7 +321,7 @@ It may be desirable to prevent the startup of the sshd daemon and/or sshd-bootst
 
 ##### SSH_CHROOT_DIRECTORY
 
-This option is only applicable when `SSH_USER_FORCE_SFTP` is set to `true`. When using the using the SFTP option the user is jailed into the ChrootDirectory. The value can contain the placeholders `%h` and `%u` which will be replaced with the values of `SSH_USER_HOME` and `SSH_USER` respectively. The default value of `%h` is the best choice in most cases but the user requires a sub-directory in their HOME directory which they have write access to. If no volume is mounted into the path of the SSH user's HOME directory the a directory named `_data` is created automatically. If you need the user to be able to write to their HOME directory they use an alternative value such as `/chroot/%u` so that the user's HOME path, (relative to the ChrootDirectory), becomes `/chroot/app-admin/home/app-admin` by default.
+This option is only applicable when `SSH_USER_FORCE_SFTP` is set to `true`. When using the using the SFTP option the user is jailed into the ChrootDirectory. The value can contain the placeholders `%h` and `%u` which will be replaced with the values of `SSH_USER_HOME` and `SSH_USER` respectively. The default value of `%h` is the best choice in most cases but the user requires a sub-directory in their HOME directory which they have write access to. If no volume is mounted into the path of the SSH user's HOME directory the a directory named `_data` is created automatically. If you need the user to be able to write to their HOME directory they use an alternative value such as `/chroot/%u` so that the user's HOME path, (relative to the ChrootDirectory), becomes `/chroot/hadoop/home/hadoop` by default.
 
 ```
 ...
@@ -351,7 +351,7 @@ On first run the SSH user is created with a the sudo rule `ALL=(ALL)  ALL` which
 
 ##### SSH_USER
 
-On first run the SSH user is created with the default username of "app-admin". If you require an alternative username `SSH_USER` can be used when running the container.
+On first run the SSH user is created with the default username of "hadoop". If you require an alternative username `SSH_USER` can be used when running the container.
 
 ```
 ...
@@ -463,6 +463,6 @@ To connect to the running container use:
 ```
 $ ssh -p {container-port} \
   -i ~/.ssh/id_rsa_insecure \
-  app-admin@{docker-host-ip} \
+  hadoop@{docker-host-ip} \
   -o StrictHostKeyChecking=no
 ```
