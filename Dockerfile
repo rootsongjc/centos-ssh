@@ -19,11 +19,8 @@ ADD etc/yum.repos.d/td-idc-yz.repo /etc/yum.repos.d/
 # -----------------------------------------------------------------------------
 RUN rpm --rebuilddb \
 	&& yum -y install \
-		centos-release-scl \
-		centos-release-scl-rh \
-		epel-release \
-		https://centos7.iuscommunity.org/ius-release.rpm \
 		vim \
+        net-tools \
 		xz-5.1.2-12alpha.el7.x86_64 \
 		sudo-1.8.6p7-17.el7_2 \
 		openssh-6.6.1p1-25.el7_2 \
