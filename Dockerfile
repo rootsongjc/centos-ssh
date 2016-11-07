@@ -164,34 +164,9 @@ ENV SSH_AUTHORIZED_KEYS="" \
 # -----------------------------------------------------------------------------
 # Set image metadata
 # -----------------------------------------------------------------------------
-ARG RELEASE_VERSION="2.1.3"
+ARG RELEASE_VERSION="1.0.0"
 LABEL \
-	install="docker run \
---rm \
---privileged \
---volume /:/media/root \
-jdeathe/centos-ssh:centos-7-${RELEASE_VERSION} \
-/usr/sbin/scmi install \
---chroot=/media/root \
---name=\${NAME} \
---tag=centos-7-${RELEASE_VERSION} \
---setopt='--volume {{NAME}}.config-ssh:/etc/ssh'" \
-	uninstall="docker run \
---rm \
---privileged \
---volume /:/media/root \
-jdeathe/centos-ssh:centos-7-${RELEASE_VERSION} \
-/usr/sbin/scmi uninstall \
---chroot=/media/root \
---name=\${NAME} \
---tag=centos-7-${RELEASE_VERSION} \
---setopt='--volume {{NAME}}.config-ssh:/etc/ssh'" \
-	org.deathe.name="centos-ssh" \
-	org.deathe.version="${RELEASE_VERSION}" \
-	org.deathe.release="jdeathe/centos-ssh:centos-7-${RELEASE_VERSION}" \
-	org.deathe.license="MIT" \
-	org.deathe.vendor="jdeathe" \
-	org.deathe.url="https://github.com/jdeathe/centos-ssh" \
-	org.deathe.description="CentOS-7 7.2.1511 x86_64 - SCL, EPEL and IUS Repositories / Supervisor / OpenSSH."
+        description="CentOS-7 7.2.1511 x86_64 - SCL, EPEL and IUS Repositories / Supervisor / OpenSSH." \
+        vendor="CentOS"
 
 CMD ["/usr/bin/supervisord", "--configuration=/etc/supervisord.conf"]
